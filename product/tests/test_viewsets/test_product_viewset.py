@@ -15,9 +15,6 @@ class TestProductViewSet(APITestCase):
 
     def setUp(self):
         self.user = UserFactory()
-        token = Token.objects.create(user=self.user)  # added
-        token.save()  # added
-
         self.product = ProductFactory(
             title="pro controller",
             price=200.00,
@@ -39,7 +36,7 @@ class TestProductViewSet(APITestCase):
 
     def test_create_product(self):
         token = Token.objects.get(user__username=self.user.username)
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer " + token.key)
         category = CategoryFactory()
         data = json.dumps(
             {"title": "notebook", "price": 800.00,
