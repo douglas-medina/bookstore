@@ -15,5 +15,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar o restante dos arquivos da aplicação
 COPY . /app/
 
-# CMD para iniciar o servidor de desenvolvimento do Django
-CMD ["python", "manage.py", "runserver"]
+# CMD para iniciar o servidor de desenvolvimento do Django na porta 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
