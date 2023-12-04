@@ -1,6 +1,11 @@
 # Use a versão específica do Python
 FROM python:3.11.4
 
+# Install Postgres dependencies
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc \
+    && pip install psycopg2
+
 # Configuração das variáveis de ambiente
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
