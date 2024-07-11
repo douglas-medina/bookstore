@@ -30,6 +30,7 @@ class TestProductViewSet(APITestCase):
             content_type="application/json",
         )
 
+        #TODO: RESOLVER ESTE ERRO TAMBEM (python manage.py test)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         created_product = Product.objects.get(title="notebook")
