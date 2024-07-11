@@ -7,6 +7,7 @@ from order.factories import UserFactory
 from product.factories import CategoryFactory, ProductFactory
 from product.models import Product
 
+
 class TestProductViewSet(APITestCase):
     client = APIClient()
 
@@ -18,11 +19,7 @@ class TestProductViewSet(APITestCase):
     def test_create_product(self):
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
         category = CategoryFactory()
-        data = {
-            "title": "notebook",
-            "price": 800.00,
-            "categories_id": [category.id]
-        }
+        data = {"title": "notebook", "price": 800.00, "categories_id": [category.id]}
 
         response = self.client.post(
             reverse("product-list", kwargs={"version": "v1"}),

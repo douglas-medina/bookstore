@@ -25,4 +25,6 @@ class CategoryViewSetTest(APITestCase):
                 found = True
                 break
 
-        self.assertTrue(found, f"Category '{self.category.title}' not found in response.")
+        self.assertTrue(
+            found, f"Category '{self.category.title}' not found in response."
+        )
