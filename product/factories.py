@@ -4,13 +4,13 @@ from product.models import Category, Product
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
-    title = factory.Faker("pystr")
-    slug = factory.Faker("pystr")
-    description = factory.Faker("pystr")
-    active = factory.Iterator([True, False])
-
     class Meta:
         model = Category
+
+    title = factory.Faker('word')
+    slug = factory.Faker('slug')
+    description = factory.Faker('sentence')
+    active = True
 
 
 class ProductFactory(factory.django.DjangoModelFactory):
