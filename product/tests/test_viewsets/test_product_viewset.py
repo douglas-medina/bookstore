@@ -1,6 +1,5 @@
 import json
 from django.urls import reverse
-from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient, APITestCase
 from rest_framework.views import status
 from order.factories import UserFactory
@@ -12,17 +11,12 @@ class TestProductViewSet(APITestCase):
     client = APIClient()
 
     def setUp(self):
-        self.user = UserFactory()
-        self.token = Token.objects.create(user=self.user)
-        self.token.save()
-
         self.category = CategoryFactory(title="Category 1")
         self.product = ProductFactory(
             title="notebook", price=800.00, active=True, category=[self.category]
         )
 
     def test_get_all_product(self):
-        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
         response = self.client.get(reverse("product-list", kwargs={"version": "v1"}))
 
@@ -37,7 +31,6 @@ class TestProductViewSet(APITestCase):
         )
 
     def test_create_product(self):
-        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
         category = CategoryFactory()
         data = {
             "title": "unique_notebook",
