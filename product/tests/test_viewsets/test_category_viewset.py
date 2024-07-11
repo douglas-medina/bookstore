@@ -19,10 +19,4 @@ class CategoryViewSetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         category_data = json.loads(response.content)
 
-        found = False
-        for category_item in category_data:
-            if category_item["title"] == self.category.title:
-                found = True
-                break
-
-        self.assertTrue(found, f"Category '{self.category.title}' not found in response.")
+        self.assertEqual(category_data["results"][0]["title"], self.category.title)
