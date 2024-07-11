@@ -1,2 +1,2 @@
 # bookstore
-Módulo 13 - Django Rest Framework | Poetry | Black
+Módulo 13 - Django Rest Framework
