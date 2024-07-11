@@ -22,13 +22,11 @@ class TestProductViewSet(APITestCase):
             title="pro controller",
             price=200.00,
         )
-
+        
+        
+    #TODO: RESOLVER ESTES ERROS
     def test_get_all_product(self):
-        token = Token.objects.get(user__username=self.user.username)  # added
-        self.client.credentials(
-            HTTP_AUTHORIZATION="Token " + token.key)  # added
-        response = self.client.get(
-            reverse("product-list", kwargs={"version": "v1"}))
+        response = self.client.get(reverse("product-list", kwargs={"version": "v1"}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         product_data = json.loads(response.content)
@@ -41,10 +39,11 @@ class TestProductViewSet(APITestCase):
         token = Token.objects.get(user__username=self.user.username)
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         category = CategoryFactory()
-        data = json.dumps(
-            {"title": "notebook", "price": 800.00,
-                "categories_id": [category.id]}
-        )
+        data = json.dumps({
+            "title": "notebook",
+            "price": 800.00,
+            "category": category.id,
+        })
 
         response = self.client.post(
             reverse("product-list", kwargs={"version": "v1"}),
@@ -52,6 +51,7 @@ class TestProductViewSet(APITestCase):
             content_type="application/json",
         )
 
+        #TODO: RESOLVER ESTE ERRO TAMBEM (python manage.py test)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         created_product = Product.objects.get(title="notebook")
